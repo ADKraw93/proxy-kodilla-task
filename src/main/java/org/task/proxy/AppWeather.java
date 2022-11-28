@@ -10,7 +10,7 @@ public class AppWeather {
 
     public static void main(String[] args) throws InterruptedException {
         long begin = System.currentTimeMillis();
-        for (int n = 0; n < 3; n++) {
+        for (int n = 0; n < 5; n++) {
             WeatherForecast forecast = new WeatherForcastProcessorProxy();
             System.out.println(forecast.getWeather());
 

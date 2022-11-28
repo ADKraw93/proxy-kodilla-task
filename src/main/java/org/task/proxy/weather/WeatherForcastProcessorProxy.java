@@ -4,23 +4,27 @@ import java.util.Random;
 
 public class WeatherForcastProcessorProxy implements WeatherForecast{
 
-    public WeatherForcastProcessorProxy() {
-    }
+    private WeatherForecast forecast;
 
-    @Override
-    public String getWeather() {
-        int number = new Random().nextInt(3);
-        if(number==0) {
-            return "sun";
-        } else if(number==1) {
-            return "rain";
-        } else {
-            return "snow";
+    public WeatherForcastProcessorProxy() throws InterruptedException {
+        if(forecast==null) {
+            forecast = new WeatherForcastProcessor();
         }
     }
 
     @Override
+    public String getWeather() throws InterruptedException {
+        if(forecast==null) {
+            forecast = new WeatherForcastProcessor();
+        }
+        return forecast.getWeather();
+    }
+
+    @Override
     public void refreshData() throws InterruptedException {
-        Thread.sleep(5000);
+        if(forecast==null) {
+            forecast = new WeatherForcastProcessor();
+        }
+        forecast.refreshData();
     }
 }
